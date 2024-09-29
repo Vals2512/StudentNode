@@ -17,6 +17,15 @@ import javax.swing.ImageIcon;
 import controller.StudentHandler;
 import model.Student;
 
+/**
+ * The FindStudentScreen class represents a user interface screen that allows
+ * the user to search for a student by their ID. It displays the student's
+ * information and an image if the student is found.
+ * 
+ * This class extends JFrame and implements a GUI using Swing components.
+ * It interacts with the StudentHandler controller to perform the student search
+ * and display relevant information.
+ */
 public class FindStudentScreen extends JFrame {
     private static final long serialVersionUID = 1L;
 
@@ -29,9 +38,15 @@ public class FindStudentScreen extends JFrame {
 
     private JButton buttonFind;
     private JButton buttonCancel;
-    private StudentHandler sh = StudentHandler.getInstance(); // Obtener la instancia del manejador
+    private StudentHandler sh = StudentHandler.getInstance();
     private PrincipalScreen ps;
 
+    /**
+     * Constructor for FindStudentScreen.
+     * 
+     * @param ps The main screen instance (PrincipalScreen) to return to when
+     *           closing this screen.
+     */
     public FindStudentScreen(PrincipalScreen ps) {
         this.ps = ps;
         this.configureScreen();
@@ -40,6 +55,10 @@ public class FindStudentScreen extends JFrame {
         this.configureEvents();
     }
 
+    /**
+     * Configures the main properties of the screen, such as title, size, layout,
+     * and background color.
+     */
     private void configureScreen() {
         setTitle("Find Student by Code");
         setSize(550, 500);
@@ -47,8 +66,13 @@ public class FindStudentScreen extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
         getContentPane().setBackground(Color.lightGray);
+        setLocationRelativeTo(null);
     }
 
+    /**
+     * Builds and initializes the components that make up the screen, including
+     * labels, text fields, and buttons.
+     */
     private void buildComponents() {
         this.labelStudentID = new JLabel("Student ID:");
         this.labelStudentFound = new JLabel("Student Found:");
@@ -66,14 +90,17 @@ public class FindStudentScreen extends JFrame {
         this.buttonFind.setBackground(Color.GREEN);
         this.buttonCancel.setBackground(Color.RED);
 
-        // Cargar la imagen del estudiante
-        ImageIcon studentImage = new ImageIcon("src/main/resources/image1.png"); // Asegúrate de poner la ruta correcta
+        ImageIcon studentImage = new ImageIcon("src/main/resources/image1.png");
         Image scaledImage = studentImage.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         labelStudentImage = new JLabel(new ImageIcon(scaledImage));
         labelStudentImage.setHorizontalAlignment(JLabel.CENTER);
 
     }
 
+    /**
+     * Adds all components to the screen using the GridBagLayout constraints to
+     * ensure correct positioning.
+     */
     private void addComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -88,7 +115,7 @@ public class FindStudentScreen extends JFrame {
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        gbc.insets = new Insets(5, 0, 5, 5); // Reducir el espacio a la izquierda
+        gbc.insets = new Insets(5, 0, 5, 5);
         this.add(txtStudentId, gbc);
 
         // Inserción del botón "Find"
@@ -98,7 +125,7 @@ public class FindStudentScreen extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.insets = new Insets(0, 0, 5, 5); // Reducir el espacio superior
+        gbc.insets = new Insets(0, 0, 5, 5);
         this.add(buttonFind, gbc);
 
         // Inserción del botón "Cancel"
@@ -108,7 +135,7 @@ public class FindStudentScreen extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.insets = new Insets(0, 0, 5, 5); // Reducir el espacio superior
+        gbc.insets = new Insets(0, 0, 5, 5);
         this.add(buttonCancel, gbc);
 
         // Inserción del título "Student Found"
@@ -117,7 +144,7 @@ public class FindStudentScreen extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.weightx = 0;
         gbc.weighty = 0;
-        gbc.insets = new Insets(10, 5, 5, 5); // Aumentar el espacio superior
+        gbc.insets = new Insets(10, 5, 5, 5);
         this.add(labelStudentFound, gbc);
 
         // Inserción de la información del estudiante encontrado
@@ -126,24 +153,27 @@ public class FindStudentScreen extends JFrame {
         gbc.gridwidth = 2;
         gbc.weightx = 0;
         gbc.weighty = 0;
-        gbc.insets = new Insets(10, 0, 5, 5); // Aumentar el espacio superior
+        gbc.insets = new Insets(10, 0, 5, 5);
         this.add(labelStudentInfo, gbc);
 
-        // Inserción de la
-        // Inserción de la imagen del estudiante encontrado
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.weightx = 1;
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(10, 0, 5, 5); // Aumentar el espacio superior
+        gbc.insets = new Insets(10, 0, 5, 5);
         JPanel panel = new JPanel();
         panel.setBackground(Color.lightGray);
         panel.add(labelStudentImage);
         this.add(panel, gbc);
     }
 
+    /**
+     * Configures the event listeners for buttons and window events.
+     * Handles finding the student, displaying the result, and returning to the main
+     * screen.
+     */
     private void configureEvents() {
         buttonFind.addActionListener(e -> {
             try {

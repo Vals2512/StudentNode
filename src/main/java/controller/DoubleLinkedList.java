@@ -82,14 +82,14 @@ public class DoubleLinkedList<T extends Entity> {
         Node<T> newNode = new Node<>(value);
 
         if (node == last) {
-            addNodeLast(value); // If it's the last node, use addNodeLast
+            addNodeLast(value);
         } else {
-            newNode.setNext(node.getNext()); // Set newNode's next to node's next
-            newNode.setPrevious(node); // Set newNode's previous to node
-            if (node.getNext() != null) { // Ensure node's next is not null
-                node.getNext().setPrevious(newNode); // Set node's next previous to newNode
+            newNode.setNext(node.getNext());
+            newNode.setPrevious(node);
+            if (node.getNext() != null) {
+                node.getNext().setPrevious(newNode);
             }
-            node.setNext(newNode); // Set node's next to newNode
+            node.setNext(newNode);
         }
     }
 
@@ -101,18 +101,18 @@ public class DoubleLinkedList<T extends Entity> {
      */
     public void addNodeBeforeTo(Node<T> node, T value) {
         if (node == null)
-            return; // Validate input
+            return;
         Node<T> newNode = new Node<>(value);
 
         if (node == head) {
-            addNodeFirst(value); // If it's the head node, use addNodeFirst
+            addNodeFirst(value);
         } else {
-            newNode.setNext(node); // Set newNode's next to node
-            newNode.setPrevious(node.getPrevious()); // Set newNode's previous
+            newNode.setNext(node);
+            newNode.setPrevious(node.getPrevious());
             if (node.getPrevious() != null) {
-                node.getPrevious().setNext(newNode); // Set the previous node's next to newNode
+                node.getPrevious().setNext(newNode);
             }
-            node.setPrevious(newNode); // Set node's previous to newNode
+            node.setPrevious(newNode);
         }
     }
 
@@ -126,22 +126,20 @@ public class DoubleLinkedList<T extends Entity> {
         Node<T> newNode = new Node<>(value);
         if (isEmpty()) {
             head = newNode;
-            last = newNode; // Initialize head and last
+            last = newNode;
         } else {
             Node<T> current = head;
             while (current != null) {
-                // Compare the values and insert the new node in the correct position
                 if (value.compareTo(current.getInfo()) < 0) {
                     if (current == head) {
-                        addNodeFirst(value); // Insert at the head
+                        addNodeFirst(value);
                     } else {
-                        addNodeBeforeTo(current, value); // Insert before current
+                        addNodeBeforeTo(current, value);
                     }
                     return;
                 }
                 current = current.getNext();
             }
-            // If the new node is larger than all existing nodes, add it to the end
             addNodeLast(value);
         }
     }
@@ -154,14 +152,14 @@ public class DoubleLinkedList<T extends Entity> {
      */
 
     public Node<T> findNode(String code) {
-        Node<T> current = head; // Inicia desde el nodo cabeza
-        while (current != null) { // Mientras no llegue al final
-            if (current.getInfo().getId().equals(code)) { // Compara el valor
-                return current; // Retorna el nodo encontrado
+        Node<T> current = head;
+        while (current != null) {
+            if (current.getInfo().getId().equals(code)) {
+                return current;
             }
-            current = current.getNext(); // Mueve al siguiente nodo
+            current = current.getNext();
         }
-        return null; // Retorna null si no se encuentra
+        return null;
     }
 
     /**
@@ -171,14 +169,14 @@ public class DoubleLinkedList<T extends Entity> {
      * @return the info of the node containing the value, or null if not found
      */
     public T findInfo(T value) {
-        Node<T> current = head; // Inicia desde el nodo cabeza
-        while (current != null) { // Mientras no llegue al final
-            if (current.getInfo().equals(value)) { // Compara el valor
-                return current.getInfo(); // Retorna la información del nodo encontrado
+        Node<T> current = head;
+        while (current != null) {
+            if (current.getInfo().equals(value)) {
+                return current.getInfo();
             }
-            current = current.getNext(); // Mueve al siguiente nodo
+            current = current.getNext();
         }
-        return null; // Retorna null si no se encuentra
+        return null;
     }
 
     /**
@@ -189,24 +187,24 @@ public class DoubleLinkedList<T extends Entity> {
      * @return a list of elements in the specified order
      */
     public List<T> getLinkedList(boolean asc) {
-        List<T> elements = new ArrayList<>(); // Lista para almacenar los elementos
+        List<T> elements = new ArrayList<>();
         Node<T> current;
 
         if (asc) {
-            current = head; // Inicia desde la cabeza
-            while (current != null) { // Mientras no llegue al final
-                elements.add(current.getInfo()); // Agrega la información a la lista
-                current = current.getNext(); // Mueve al siguiente nodo
+            current = head;
+            while (current != null) {
+                elements.add(current.getInfo());
+                current = current.getNext();
             }
         } else {
-            current = last; // Inicia desde el último nodo
-            while (current != null) { // Mientras no llegue al principio
-                elements.add(current.getInfo()); // Agrega la información a la lista
-                current = current.getPrevious(); // Mueve al nodo anterior
+            current = last;
+            while (current != null) {
+                elements.add(current.getInfo());
+                current = current.getPrevious();
             }
         }
 
-        return elements; // Retorna la lista de elementos
+        return elements;
     }
 
     /**
@@ -216,7 +214,7 @@ public class DoubleLinkedList<T extends Entity> {
      * @return the information of the deleted node
      */
     public T deleteNode(Node<T> node) {
-        if (node == head && node == last) { // Only one node
+        if (node == head && node == last) {
             T info = node.getInfo();
             head = null;
             last = null;
@@ -233,6 +231,8 @@ public class DoubleLinkedList<T extends Entity> {
             node.getPrevious().setNext(node.getNext());
             node.getNext().setPrevious(node.getPrevious());
         }
+        
+        node = null;
         return node.getInfo();
     }
 
@@ -250,7 +250,7 @@ public class DoubleLinkedList<T extends Entity> {
         do {
             size++;
             current = current.getNext();
-        } while (current != head && current != null); // Loop until we return to head
+        } while (current != head && current != null);
 
         return size;
     }
@@ -273,9 +273,9 @@ public class DoubleLinkedList<T extends Entity> {
             }
             index++;
             current = current.getNext();
-        } while (current != head); // Loop until we return to head
+        } while (current != head);
 
-        return null; // Position out of bounds
+        return null;
     }
 
     /**

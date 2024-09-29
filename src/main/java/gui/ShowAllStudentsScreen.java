@@ -7,9 +7,7 @@ import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -18,14 +16,31 @@ import javax.swing.table.JTableHeader;
 import controller.StudentHandler;
 import model.Student;
 
+/**
+ * The ShowAllStudentsScreen class represents a graphical user interface (GUI)
+ * window that displays all students in a table. It provides functionality to
+ * view
+ * student information in ascending or descending order and access details of
+ * the first, last, or any student by position.
+ * 
+ * This class extends JFrame and uses a GridBagLayout for the screen's layout.
+ * It interacts with the StudentHandler singleton instance to retrieve student
+ * data.
+ */
+
 public class ShowAllStudentsScreen extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private JTable table;
     private DefaultTableModel model;
 
-    private StudentHandler sh = StudentHandler.getInstance(); // Obtener la instancia del manejador
+    private StudentHandler sh = StudentHandler.getInstance();
 
+    /**
+     * Constructor that initializes the ShowAllStudentsScreen. It sets up the screen
+     * configuration, builds the components, adds them to the frame, and configures
+     * the events.
+     */
     public ShowAllStudentsScreen() {
         this.configureScreen();
         this.buildComponents();
@@ -33,15 +48,24 @@ public class ShowAllStudentsScreen extends JFrame {
         this.configureEvents();
     }
 
+    /**
+     * Configures the main settings of the screen, such as title, size, layout,
+     * background color, and default close operation.
+     */
+
     private void configureScreen() {
         setTitle("Show All Students");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
-        getContentPane().setBackground(Color.decode("#F7F7F7")); // Color de fondo
+        getContentPane().setBackground(Color.decode("#F7F7F7"));
     }
 
+    /**
+     * Builds and initializes the components used in the screen, including the
+     * table and its model.
+     */
     private void buildComponents() {
         model = new DefaultTableModel();
         model.addColumn("ID");
@@ -50,18 +74,21 @@ public class ShowAllStudentsScreen extends JFrame {
 
         table = new JTable(model);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        table.setBackground(Color.decode("#FFFFFF")); // Color de fondo de la tabla
-        table.setForeground(Color.decode("#333333")); // Color de texto de la tabla
+        table.setBackground(Color.decode("#FFFFFF"));
+        table.setForeground(Color.decode("#333333"));
 
         JTableHeader header = table.getTableHeader();
-        header.setBackground(Color.blue); // Color de fondo del encabezado
-        header.setForeground(Color.decode("#FFFFFF")); // Color de texto del encabezado
+        header.setBackground(Color.blue);
+        header.setForeground(Color.decode("#FFFFFF"));
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBackground(Color.decode("#FFFFFF")); // Color de fondo del scroll pane
-        scrollPane.getViewport().setBackground(Color.decode("#FFFFFF")); // Color de fondo del viewport
+        scrollPane.setBackground(Color.decode("#FFFFFF"));
+        scrollPane.getViewport().setBackground(Color.decode("#FFFFFF"));
     }
 
+    /**
+     * Adds components to the screen using the GridBagConstraints layout manager.
+     */
     private void addComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -84,8 +111,8 @@ public class ShowAllStudentsScreen extends JFrame {
         buttonAscending.addActionListener(e -> {
             loadStudents(true);
         });
-        buttonAscending.setBackground(Color.MAGENTA); // Color de fondo del botón
-        buttonAscending.setForeground(Color.decode("#FFFFFF")); // Color de texto del botón
+        buttonAscending.setBackground(Color.MAGENTA);
+        buttonAscending.setForeground(Color.decode("#FFFFFF"));
         this.add(buttonAscending, gbc);
 
         gbc.gridx = 1;
@@ -112,8 +139,8 @@ public class ShowAllStudentsScreen extends JFrame {
         buttonFirst.addActionListener(e -> {
             showStudentInfo(sh.getFirstStudent());
         });
-        buttonFirst.setBackground(Color.blue); // Color de fondo del botón
-        buttonFirst.setForeground(Color.decode("#FFFFFF")); // Color de texto del botón
+        buttonFirst.setBackground(Color.blue);
+        buttonFirst.setForeground(Color.decode("#FFFFFF"));
         this.add(buttonFirst, gbc);
 
         gbc.gridx = 3;
@@ -126,8 +153,8 @@ public class ShowAllStudentsScreen extends JFrame {
         buttonLast.addActionListener(e -> {
             showStudentInfo(sh.getLastStudent());
         });
-        buttonLast.setBackground(Color.pink); // Color de fondo del botón
-        buttonLast.setForeground(Color.black); // Color de texto del botón
+        buttonLast.setBackground(Color.pink);
+        buttonLast.setForeground(Color.black);
         this.add(buttonLast, gbc);
 
         gbc.gridx = 4;
@@ -149,8 +176,8 @@ public class ShowAllStudentsScreen extends JFrame {
                 }
             }
         });
-        buttonByPosition.setBackground(Color.decode("#4CAF50")); // Color de fondo del botón
-        buttonByPosition.setForeground(Color.decode("#FFFFFF")); // Color de texto del botón
+        buttonByPosition.setBackground(Color.decode("#4CAF50"));
+        buttonByPosition.setForeground(Color.decode("#FFFFFF"));
         this.add(buttonByPosition, gbc);
 
         gbc.gridx = 2;
@@ -163,15 +190,25 @@ public class ShowAllStudentsScreen extends JFrame {
         buttonBack.addActionListener(e -> {
             this.dispose();
         });
-        buttonBack.setBackground(Color.red); // Color de fondo del botón
-        buttonBack.setForeground(Color.decode("#FFFFFF")); // Color de texto del botón
+        buttonBack.setBackground(Color.red);
+        buttonBack.setForeground(Color.decode("#FFFFFF"));
         this.add(buttonBack, gbc);
     }
 
+    /**
+     * Configures initial events, such as loading students when the screen opens.
+     */
     private void configureEvents() {
         loadStudents(true);
     }
 
+    /**
+     * Loads all students from the StudentHandler in ascending or descending order
+     * based on the parameter.
+     * 
+     * @param ascending true if students should be loaded in ascending order, false
+     *                  otherwise
+     */
     private void loadStudents(boolean ascending) {
         model.setRowCount(0);
         for (Student student : sh.listAllStudents(ascending)) {
@@ -179,6 +216,11 @@ public class ShowAllStudentsScreen extends JFrame {
         }
     }
 
+    /**
+     * Displays the information of a specific student in a JOptionPane dialog.
+     * 
+     * @param student the student object whose information is to be displayed
+     */
     private void showStudentInfo(Student student) {
         if (student != null) {
             String info = "ID: " + student.getId() + "\n";

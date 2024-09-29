@@ -16,6 +16,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
 
+/**
+ * The AddStudentScreen class represents the graphical user interface screen for
+ * adding a student.
+ * It allows the user to input the student's details and adds them to the list
+ * of students managed
+ * by the StudentHandler.
+ */
 public class AddStudentScreen extends JFrame {
     private static final long serialVersionUID = 1L;
 
@@ -39,6 +46,10 @@ public class AddStudentScreen extends JFrame {
     private StudentHandler sh = StudentHandler.getInstance(); // Obtener la instancia del manejador
     private PrincipalScreen ps;
 
+    /**
+     * Enum representing the action types that can be performed when adding a
+     * student.
+     */
     public enum ActionType {
         ADD,
         ADD_FIRST,
@@ -49,6 +60,14 @@ public class AddStudentScreen extends JFrame {
 
     private ActionType actionType;
 
+    /**
+     * Constructor to initialize the AddStudentScreen with a reference to the
+     * PrincipalScreen
+     * and the action type to be performed.
+     *
+     * @param ps         The main screen reference
+     * @param actionType The action type for adding the student
+     */
     public AddStudentScreen(PrincipalScreen ps, ActionType actionType) {
         this.actionType = actionType;
         this.configureScreen();
@@ -58,6 +77,9 @@ public class AddStudentScreen extends JFrame {
         this.ps = ps;
     }
 
+    /**
+     * Default constructor for AddStudentScreen.
+     */
     public AddStudentScreen() {
         this.configureScreen();
         this.buildComponents();
@@ -65,6 +87,10 @@ public class AddStudentScreen extends JFrame {
         this.configureEvents();
     }
 
+    /**
+     * Configures the main settings of the screen, such as title, size, layout, and
+     * background color.
+     */
     private void configureScreen() {
         setTitle("Add Student");
         setSize(600, 450);
@@ -73,6 +99,10 @@ public class AddStudentScreen extends JFrame {
         setLayout(new GridBagLayout());
         getContentPane().setBackground(Color.lightGray);
     }
+
+    /**
+     * Initializes and sets up the GUI components.
+     */
 
     private void buildComponents() {
         this.labelStudent = new JLabel("Student");
@@ -109,6 +139,9 @@ public class AddStudentScreen extends JFrame {
         this.buttonCancel.setBackground(Color.RED);
     }
 
+    /**
+     * Adds the components to the screen using GridBagLayout constraints.
+     */
     private void addComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -209,6 +242,9 @@ public class AddStudentScreen extends JFrame {
         this.add(buttonAdd, gbc);
     }
 
+    /**
+     * Configures the event handlers for the buttons (Add and Cancel).
+     */
     private void configureEvents() {
         buttonAdd.addActionListener(e -> {
             try {

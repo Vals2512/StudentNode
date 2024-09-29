@@ -2,20 +2,35 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import controller.StudentHandler;
 
+/**
+ * The ButtonHandler class handles the events triggered by button clicks
+ * in the graphical user interface. It implements the ActionListener
+ * interface to manage actions for various buttons on the PrincipalScreen.
+ */
 public class ButtonHandler implements ActionListener {
 
     private StudentHandler sh;
-
     private PrincipalScreen principalScreen;
 
+    /**
+     * Constructor for the ButtonHandler class.
+     *
+     * @param ps The main screen (PrincipalScreen) from which the button events are
+     *           managed.
+     */
     public ButtonHandler(PrincipalScreen ps) {
         this.sh = new StudentHandler();
         this.principalScreen = ps;
     }
 
+    /**
+     * Handles button click events based on the command associated with the button.
+     * Different actions are performed depending on the button clicked.
+     *
+     * @param e The ActionEvent triggered by the button click.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -51,17 +66,22 @@ public class ButtonHandler implements ActionListener {
                 addAfterStudentScreen.setVisible(true);
                 principalScreen.setVisible(false);
                 break;
-
             case "Find by Id":
                 FindStudentScreen findStudentScreen = new FindStudentScreen(principalScreen);
                 findStudentScreen.setVisible(true);
                 principalScreen.setVisible(false);
                 break;
             case "Update":
-                System.out.println("Update button clicked");
+                UpdateStudentScreen updateStudentScreen = new UpdateStudentScreen(principalScreen);
+                updateStudentScreen.setVisible(true);
+                principalScreen.setVisible(false);
                 break;
             case "Delete":
-                System.out.println("Delete button clicked");
+
+                DeleteStudentScreen deleteStudentScreen = new DeleteStudentScreen(principalScreen);
+                deleteStudentScreen.setVisible(true);
+                principalScreen.setVisible(false);
+
                 break;
             case "Show All Students":
                 ShowAllStudentsScreen screen = new ShowAllStudentsScreen();
@@ -70,6 +90,5 @@ public class ButtonHandler implements ActionListener {
             default:
                 System.out.println("Unknown action: " + command);
         }
-
     }
 }
