@@ -153,7 +153,8 @@ public class Student extends Entity {
      */
     @Override
     public String toString() {
-        return "Student [ Code=" + id + ", name=" + name + ", email=" + email + ", gender=" + gender + ", career="
+        return "Student [ Code=" + id + ", name=" + name + ", Last name= " + lastname + ", email=" + email + ", gender="
+                + gender + ", career="
                 + career + "]";
     }
 

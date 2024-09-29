@@ -250,7 +250,7 @@ public class DoubleLinkedList<T extends Entity> {
         do {
             size++;
             current = current.getNext();
-        } while (current != head); // Loop until we return to head
+        } while (current != head && current != null); // Loop until we return to head
 
         return size;
     }

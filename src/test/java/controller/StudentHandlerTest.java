@@ -32,12 +32,25 @@ public class StudentHandlerTest {
     @Test
     public void testAddStudentSortedOrder() {
         handler.addStudent(new Student("001", "Ana", "Martinez", "camila.gonzalez", EGender.FEMALE, "systems"));
-        handler.addStudent(new Student("002", "Carlos", "Alvarez", "camila.gonzalez", EGender.MALE, "systems"));
         handler.addStudent(new Student("003", "Brenda", "Garcia", "camila.gonzalez", EGender.FEMALE, "systems"));
+        handler.addStudent(new Student("002", "Carlos", "Alvarez", "camila.gonzalez", EGender.MALE, "systems"));
+        handler.addStudent(new Student("006", "Carlos", "Ramirez", "camila.gonzalez", EGender.MALE, "systems"));
+        handler.addStudent(new Student("004", "Carlos", "Vega", "camila.gonzalez", EGender.MALE, "systems"));
+        handler.addStudent(new Student("005", "Carlos", "Alvarez", "camila.gonzalez", EGender.MALE, "systems"));
 
-        assertEquals("Alvarez", handler.listAllStudents(true).get(0).getLastName());
-        assertEquals("Garcia", handler.listAllStudents(true).get(1).getLastName());
-        assertEquals("Martinez", handler.listAllStudents(true).get(2).getLastName());
+        assertEquals("Martinez", handler.listAllStudents(true).get(0).getLastName());
+        assertEquals("Alvarez", handler.listAllStudents(true).get(1).getLastName());
+        assertEquals("Garcia", handler.listAllStudents(true).get(2).getLastName());
+        assertEquals("Vega", handler.listAllStudents(true).get(3).getLastName());
+        assertEquals("Alvarez", handler.listAllStudents(true).get(4).getLastName());
+        assertEquals("Ramirez", handler.listAllStudents(true).get(5).getLastName());
+
+        assertEquals("Ramirez", handler.listAllStudents(false).get(0).getLastName());
+        assertEquals("Alvarez", handler.listAllStudents(false).get(1).getLastName());
+        assertEquals("Vega", handler.listAllStudents(false).get(2).getLastName());
+        assertEquals("Garcia", handler.listAllStudents(false).get(3).getLastName());
+        assertEquals("Alvarez", handler.listAllStudents(false).get(4).getLastName());
+        assertEquals("Martinez", handler.listAllStudents(false).get(5).getLastName());
     }
 
     @Test
@@ -98,8 +111,10 @@ public class StudentHandlerTest {
 
         handler.addStudentAfter("001",
                 new Student("004", "Natalia", "Romero", "camila.gonzalez", EGender.FEMALE, "systems"));
-        assertEquals("Romero", handler.listAllStudents(true).get(2).getLastName(),
-                "Natalia Romero should be after Lucia Diaz");
+        assertEquals("Romero", handler.listAllStudents(true).get(1).getLastName());
+        assertEquals("Hernandez", handler.listAllStudents(true).get(2).getLastName());
+        assertEquals("Jimenez", handler.listAllStudents(true).get(3).getLastName());
+        assertEquals("Diaz", handler.listAllStudents(true).get(0).getLastName());
     }
 
     @Test
