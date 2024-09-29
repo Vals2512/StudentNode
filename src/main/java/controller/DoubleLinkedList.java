@@ -152,11 +152,11 @@ public class DoubleLinkedList<T extends Entity> {
      * @param value the value to search for
      * @return the node containing the value, or null if not found
      */
-    @SuppressWarnings("unlikely-arg-type")
+
     public Node<T> findNode(String code) {
         Node<T> current = head; // Inicia desde el nodo cabeza
         while (current != null) { // Mientras no llegue al final
-            if (current.getInfo().equals(code)) { // Compara el valor
+            if (current.getInfo().getId().equals(code)) { // Compara el valor
                 return current; // Retorna el nodo encontrado
             }
             current = current.getNext(); // Mueve al siguiente nodo
