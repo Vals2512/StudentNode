@@ -121,7 +121,7 @@ public class DoubleLinkedList<T extends Entity> {
      *
      * @param value the value to be added
      */
-    @SuppressWarnings("unchecked")
+
     public void addNodeSorted(T value) {
         Node<T> newNode = new Node<>(value);
         if (isEmpty()) {
@@ -131,7 +131,7 @@ public class DoubleLinkedList<T extends Entity> {
             Node<T> current = head;
             while (current != null) {
                 // Compare the values and insert the new node in the correct position
-                if (((Comparable<T>) value).compareTo(current.getInfo()) < 0) {
+                if (value.compareTo(current.getInfo()) < 0) {
                     if (current == head) {
                         addNodeFirst(value); // Insert at the head
                     } else {
@@ -152,6 +152,7 @@ public class DoubleLinkedList<T extends Entity> {
      * @param value the value to search for
      * @return the node containing the value, or null if not found
      */
+    @SuppressWarnings("unlikely-arg-type")
     public Node<T> findNode(String code) {
         Node<T> current = head; // Inicia desde el nodo cabeza
         while (current != null) { // Mientras no llegue al final
