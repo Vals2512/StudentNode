@@ -28,12 +28,12 @@ public class StudentHandler {
      *                                  already exists
      */
     public boolean addStudent(Student student) {
-        if (student == null || student.getLastName() == null || student.getCode() == null) {
+        if (student == null || student.getLastName() == null || student.getId() == null) {
             throw new IllegalArgumentException("Student or required fields are null.");
         }
 
         // Prevent duplicates by code
-        if (findStudentByCode(student.getCode()) != null) {
+        if (findStudentByCode(student.getId()) != null) {
             throw new IllegalArgumentException("A student with the same code already exists.");
         }
 
@@ -78,7 +78,7 @@ public class StudentHandler {
         }
 
         Node<Student> foundNode = studentList.findNode(code);
-        return (foundNode != null) ? foundNode.getInfo() : null; 
+        return (foundNode != null) ? foundNode.getInfo() : null;
     }
 
     /**

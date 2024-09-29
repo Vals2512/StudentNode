@@ -6,7 +6,7 @@ package model;
  */
 public class Student extends Entity {
 
-    private String code;
+    private String id;
     private String name;
     private String lastname;
     private String email;
@@ -20,15 +20,6 @@ public class Student extends Entity {
     }
 
     /**
-     * Gets the student's code.
-     * 
-     * @return the code of the student
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
      * Constructs a new Student with the specified details.
      * 
      * @param id       the student's code
@@ -39,8 +30,8 @@ public class Student extends Entity {
      * @param lastname the student's last name
      */
 
-    public Student(String code, String name, String lastname, String email, EGender gender, String career) {
-        this.code = code;
+    public Student(String id, String name, String lastname, String email, EGender gender, String career) {
+        this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
@@ -49,12 +40,21 @@ public class Student extends Entity {
     }
 
     /**
+     * Gets the student's code.
+     * 
+     * @return the code of the student
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
      * Sets the student's code.
      * 
      * @param id the new code of the student
      */
-    public void setCode(String id) {
-        this.code = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -154,7 +154,7 @@ public class Student extends Entity {
      */
     @Override
     public String toString() {
-        return "Student [ Code=" + code + ", name=" + name + ", email=" + email + ", gender=" + gender + ", career="
+        return "Student [ Code=" + id + ", name=" + name + ", email=" + email + ", gender=" + gender + ", career="
                 + career + "]";
     }
 
