@@ -1,13 +1,20 @@
 package gui;
 
 import javax.swing.*;
-
 import controller.StudentHandler;
 import model.EGender;
 import model.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The UpdateStudentScreen class represents a GUI for updating student
+ * information.
+ * It extends JFrame to create a window where the user can enter and modify
+ * details
+ * of a student identified by their ID.
+ * 
+ */
 public class UpdateStudentScreen extends JFrame {
 
     private JTextField idField;
@@ -19,8 +26,13 @@ public class UpdateStudentScreen extends JFrame {
     private JButton updateButton;
     private JButton returnButton;
 
+    /**
+     * Constructs an UpdateStudentScreen.
+     *
+     * @param ps The principal screen that will be displayed when the user returns.
+     */
     public UpdateStudentScreen(PrincipalScreen ps) {
-        // Create fields
+
         idField = new JTextField(10);
         nameField = new JTextField(10);
         lastNameField = new JTextField(10);
@@ -28,15 +40,12 @@ public class UpdateStudentScreen extends JFrame {
         careerField = new JTextField(10);
         genderComboBox = new JComboBox<>(EGender.values());
 
-        // Create buttons
         updateButton = new JButton("Update");
         returnButton = new JButton("Return");
 
-        // Create panel
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Add fields to panel
         panel.add(new JLabel("ID:"));
         panel.add(idField);
         panel.add(new JLabel("Name:"));
@@ -50,20 +59,16 @@ public class UpdateStudentScreen extends JFrame {
         panel.add(new JLabel("Gender:"));
         panel.add(genderComboBox);
 
-        // Add buttons to panel
         panel.add(updateButton);
         panel.add(returnButton);
 
-        // Add panel to frame
         add(panel);
 
-        // Set frame properties
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
 
-        // Add action listeners to buttons
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
