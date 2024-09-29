@@ -73,12 +73,12 @@ public class StudentHandler {
      * @throws IllegalArgumentException if the code is null or empty
      */
     public Student findStudentByCode(String code) {
-        if (code.isEmpty()) {
-            return null; // O puedes devolver un valor por defecto, si prefieres
+        if (code == null || code.isEmpty()) {
+            throw new IllegalArgumentException("The student code cannot be null or empty.");
         }
 
         Node<Student> foundNode = studentList.findNode(code);
-        return (foundNode != null) ? foundNode.getInfo() : null;
+        return (foundNode != null) ? foundNode.getInfo() : null; 
     }
 
     /**

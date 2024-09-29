@@ -6,7 +6,7 @@ package model;
  * 
  * @param <T> the type of data stored in the node
  */
-public class Node<T> {
+public class Node<T extends Entity> {
 
     private T info;
     private Node<T> next;

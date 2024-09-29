@@ -4,7 +4,7 @@ package model;
  * Represents a student with attributes such as code, name, email, gender, and
  * career.
  */
-public class Student {
+public class Student extends Entity {
 
     private String code;
     private String name;

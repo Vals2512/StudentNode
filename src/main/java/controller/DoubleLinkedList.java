@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Entity;
 import model.Node;
 
 /**
@@ -10,7 +11,7 @@ import model.Node;
  *
  * @param <T> the type of elements in this list
  */
-public class DoubleLinkedList<T> {
+public class DoubleLinkedList<T extends Entity> {
 
     private Node<T> head;
     private Node<T> last;
