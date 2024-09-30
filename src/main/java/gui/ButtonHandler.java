@@ -3,6 +3,7 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import controller.StudentHandler;
+import model.ActionType;
 
 /**
  * The ButtonHandler class handles the events triggered by button clicks
@@ -38,31 +39,31 @@ public class ButtonHandler implements ActionListener {
         switch (command) {
             case "Add in order by Id":
                 AddStudentScreen addStudentScreen = new AddStudentScreen(principalScreen,
-                        AddStudentScreen.ActionType.ADD);
+                        ActionType.ADD);
                 addStudentScreen.setVisible(true);
                 principalScreen.setVisible(false);
                 break;
             case "Add First":
                 AddStudentScreen addFirstStudentScreen = new AddStudentScreen(principalScreen,
-                        AddStudentScreen.ActionType.ADD_FIRST);
+                        ActionType.ADD_FIRST);
                 addFirstStudentScreen.setVisible(true);
                 principalScreen.setVisible(false);
                 break;
             case "Add Last":
                 AddStudentScreen addLastStudentScreen = new AddStudentScreen(principalScreen,
-                        AddStudentScreen.ActionType.ADD_LAST);
+                        ActionType.ADD_LAST);
                 addLastStudentScreen.setVisible(true);
                 principalScreen.setVisible(false);
                 break;
             case "Add Before":
                 AddStudentScreen addBeforeStudentScreen = new AddStudentScreen(principalScreen,
-                        AddStudentScreen.ActionType.ADD_BEFORE);
+                        ActionType.ADD_BEFORE);
                 addBeforeStudentScreen.setVisible(true);
                 principalScreen.setVisible(false);
                 break;
             case "Add After":
                 AddStudentScreen addAfterStudentScreen = new AddStudentScreen(principalScreen,
-                        AddStudentScreen.ActionType.ADD_AFTER);
+                        ActionType.ADD_AFTER);
                 addAfterStudentScreen.setVisible(true);
                 principalScreen.setVisible(false);
                 break;

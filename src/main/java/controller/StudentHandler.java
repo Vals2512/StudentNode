@@ -141,7 +141,6 @@ public class StudentHandler {
 
         Node<Student> foundNode = studentList.findNode(code);
         if (foundNode != null) {
-       
 
             if (!foundNode.getInfo().getId().equals(updatedStudent.getId())) {
                 if (studentExists(updatedStudent.getId())) {

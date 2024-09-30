@@ -1,6 +1,9 @@
 package gui;
 
 import javax.swing.*;
+
+import model.ActionType;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,7 +12,7 @@ public class PrincipalScreen extends JFrame {
 
     private AddStudentScreen ss;
 
-    private AddStudentScreen.ActionType actionType;
+    private ActionType actionType;
 
     /**
      * Constructs a new PrincipalScreen instance.

@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import controller.StudentHandler;
+import model.ActionType;
 import model.EGender;
 import model.Student;
 
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class AddStudentScreen extends JFrame {
     private static final long serialVersionUID = 1L;
-
+    private ActionType actionType;
     private JLabel labelStudentID;
     private JLabel labelName;
     private JLabel labelLastname;
@@ -45,20 +46,6 @@ public class AddStudentScreen extends JFrame {
     private JButton buttonCancel;
     private StudentHandler sh = StudentHandler.getInstance(); // Obtener la instancia del manejador
     private PrincipalScreen ps;
-
-    /**
-     * Enum representing the action types that can be performed when adding a
-     * student.
-     */
-    public enum ActionType {
-        ADD,
-        ADD_FIRST,
-        ADD_LAST,
-        ADD_BEFORE,
-        ADD_AFTER
-    }
-
-    private ActionType actionType;
 
     /**
      * Constructor to initialize the AddStudentScreen with a reference to the
