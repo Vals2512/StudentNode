@@ -17,29 +17,28 @@ import controller.StudentHandler;
 import model.Student;
 
 /**
- * The ShowAllStudentsScreen class represents a graphical user interface (GUI)
- * window that displays all students in a table. It provides functionality to
- * view
- * student information in ascending or descending order and access details of
- * the first, last, or any student by position.
- * 
- * This class extends JFrame and uses a GridBagLayout for the screen's layout.
- * It interacts with the StudentHandler singleton instance to retrieve student
- * data.
+ * This class represents the graphical user interface screen to display all
+ * students.
+ * It allows users to view all students, as well as interact with buttons to
+ * perform various actions such as displaying the first/last student, and
+ * retrieving a student by position.
  */
-
 public class ShowAllStudentsScreen extends JFrame {
     private static final long serialVersionUID = 1L;
 
+    /** JTable to display the list of students. */
     private JTable table;
+
+    /** Table model to manage the data shown in the JTable. */
     private DefaultTableModel model;
 
+    /** Instance of StudentHandler to manage student-related operations. */
     private StudentHandler sh = StudentHandler.getInstance();
 
     /**
-     * Constructor that initializes the ShowAllStudentsScreen. It sets up the screen
-     * configuration, builds the components, adds them to the frame, and configures
-     * the events.
+     * Constructs a new ShowAllStudentsScreen.
+     * Initializes the screen configuration, builds components, adds them to the
+     * frame, and sets up event handling.
      */
     public ShowAllStudentsScreen() {
         this.configureScreen();
@@ -49,10 +48,9 @@ public class ShowAllStudentsScreen extends JFrame {
     }
 
     /**
-     * Configures the main settings of the screen, such as title, size, layout,
-     * background color, and default close operation.
+     * Configures the basic properties of the screen, such as title, size, layout,
+     * and background color.
      */
-
     private void configureScreen() {
         setTitle("Show All Students");
         setSize(600, 400);
@@ -63,8 +61,8 @@ public class ShowAllStudentsScreen extends JFrame {
     }
 
     /**
-     * Builds and initializes the components used in the screen, including the
-     * table and its model.
+     * Builds the components for the screen, including the table and its model, and
+     * configures styles for the table.
      */
     private void buildComponents() {
         model = new DefaultTableModel();
@@ -87,7 +85,8 @@ public class ShowAllStudentsScreen extends JFrame {
     }
 
     /**
-     * Adds components to the screen using the GridBagConstraints layout manager.
+     * Adds all the components to the screen, such as the table and various buttons,
+     * and configures their layout.
      */
     private void addComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -117,10 +116,6 @@ public class ShowAllStudentsScreen extends JFrame {
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
         JButton buttonDescending = new JButton("Descending");
         buttonDescending.addActionListener(e -> {
             loadStudents(false);
@@ -131,10 +126,6 @@ public class ShowAllStudentsScreen extends JFrame {
 
         gbc.gridx = 2;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
         JButton buttonFirst = new JButton("First Student");
         buttonFirst.addActionListener(e -> {
             showStudentInfo(sh.getFirstStudent());
@@ -145,10 +136,6 @@ public class ShowAllStudentsScreen extends JFrame {
 
         gbc.gridx = 3;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
         JButton buttonLast = new JButton("Last Student");
         buttonLast.addActionListener(e -> {
             showStudentInfo(sh.getLastStudent());
@@ -159,10 +146,6 @@ public class ShowAllStudentsScreen extends JFrame {
 
         gbc.gridx = 4;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
         JButton buttonByPosition = new JButton("By Position");
         buttonByPosition.addActionListener(e -> {
             String position = JOptionPane.showInputDialog(this, "Enter the position:");
@@ -180,12 +163,19 @@ public class ShowAllStudentsScreen extends JFrame {
         buttonByPosition.setForeground(Color.decode("#FFFFFF"));
         this.add(buttonByPosition, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        JButton buttonTotalStudents = new JButton("Total Students");
+        buttonTotalStudents.addActionListener(e -> {
+            showTotalStudents();
+        });
+        buttonTotalStudents.setBackground(Color.decode("#8BC34A"));
+        buttonTotalStudents.setForeground(Color.decode("#FFFFFF"));
+        this.add(buttonTotalStudents, gbc);
+
         gbc.gridx = 2;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
         JButton buttonBack = new JButton("Back");
         buttonBack.addActionListener(e -> {
             this.dispose();
@@ -196,30 +186,33 @@ public class ShowAllStudentsScreen extends JFrame {
     }
 
     /**
-     * Configures initial events, such as loading students when the screen opens.
+     * Configures event handling for the screen, primarily loading students when the
+     * screen is initialized.
      */
     private void configureEvents() {
         loadStudents(true);
     }
 
     /**
-     * Loads all students from the StudentHandler in ascending or descending order
-     * based on the parameter.
+     * Loads all students into the table, in ascending or descending order based on
+     * the given parameter.
      * 
      * @param ascending true if students should be loaded in ascending order, false
-     *                  otherwise
+     *                  for descending
      */
     private void loadStudents(boolean ascending) {
         model.setRowCount(0);
-        for (Student student : sh.listAllStudents(ascending)) {
-            model.addRow(new Object[] { student.getId(), student.getName(), student.getCareer() });
+        if(!sh.listAllStudents(ascending).isEmpty() ) {
+            for (Student student : sh.listAllStudents(ascending)) {
+                model.addRow(new Object[]{student.getId(), student.getName(), student.getCareer()});
+            }
         }
     }
 
     /**
-     * Displays the information of a specific student in a JOptionPane dialog.
+     * Displays the information of a given student in a dialog box.
      * 
-     * @param student the student object whose information is to be displayed
+     * @param student the student whose information will be displayed
      */
     private void showStudentInfo(Student student) {
         if (student != null) {
@@ -230,5 +223,14 @@ public class ShowAllStudentsScreen extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "No student found", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    /**
+     * Shows the total number of students in a dialog box.
+     */
+    private void showTotalStudents() {
+        int totalStudents = sh.getNumberOfStudents();
+        JOptionPane.showMessageDialog(this, "Total Students: " + totalStudents, "Total Students",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }

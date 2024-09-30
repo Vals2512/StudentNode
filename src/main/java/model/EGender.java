@@ -6,5 +6,17 @@ package model;
  */
 
 public enum EGender {
-    FEMALE, MALE, OTHER
+    /**
+     * Makes reference to a female
+     */
+    FEMALE,
+    /**
+     * Makes reference to a male
+     */
+    MALE,
+
+    /**
+     * Makes reference to other gender
+     */
+    OTHER
 }

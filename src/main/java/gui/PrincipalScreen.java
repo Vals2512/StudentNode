@@ -7,12 +7,26 @@ import model.ActionType;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+/**
+ * The main screen of the application that extends {@link JFrame}.
+ * <p>
+ * This class serves as the primary user interface for the application,
+ * providing access to various functionalities related to student management.
+ * It initializes components and manages user interactions within the main window.
+ * </p>
+ */
 public class PrincipalScreen extends JFrame {
 
+    /**
+     * Reference to the screen for adding a student.
+     */
     private AddStudentScreen ss;
 
+    /**
+     * The type of action being performed.
+     */
     private ActionType actionType;
+
 
     /**
      * Constructs a new PrincipalScreen instance.

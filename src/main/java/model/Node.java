@@ -8,8 +8,19 @@ package model;
  */
 public class Node<T extends Entity> {
 
+    /**
+     * The information stored in the node.
+     */
     private T info;
+
+    /**
+     * A reference to the next node in the linked list.
+     */
     private Node<T> next;
+
+    /**
+     * A reference to the previous node in the linked list.
+     */
     private Node<T> previous;
 
     /**

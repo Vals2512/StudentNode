@@ -27,18 +27,54 @@ import model.Student;
  * and display relevant information.
  */
 public class FindStudentScreen extends JFrame {
+    /**
+     * Serial version UID for serialization.
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Label for displaying the student ID.
+     */
     private JLabel labelStudentID;
+
+    /**
+     * Label indicating if the student was found.
+     */
     private JLabel labelStudentFound;
+
+    /**
+     * Label for displaying student information.
+     */
     private JLabel labelStudentInfo;
+
+    /**
+     * Label for displaying the student's image.
+     */
     private JLabel labelStudentImage;
 
+    /**
+     * Text field for entering the student ID.
+     */
     private JTextField txtStudentId;
 
+    /**
+     * Button to initiate the search for a student.
+     */
     private JButton buttonFind;
+
+    /**
+     * Button to cancel the action and return to principal screen.
+     */
     private JButton buttonCancel;
+
+    /**
+     * Instance of the StudentHandler to manage student-related actions.
+     */
     private StudentHandler sh = StudentHandler.getInstance();
+
+    /**
+     * Reference to the main application screen.
+     */
     private PrincipalScreen ps;
 
     /**
@@ -61,7 +97,7 @@ public class FindStudentScreen extends JFrame {
      */
     private void configureScreen() {
         setTitle("Find Student by Code");
-        setSize(550, 500);
+        setSize(750, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());

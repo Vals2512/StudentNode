@@ -25,26 +25,99 @@ import java.util.List;
  * by the StudentHandler.
  */
 public class AddStudentScreen extends JFrame {
+    /**
+     * Serial version UID for serialization.
+     */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * The type of action being performed.
+     */
     private ActionType actionType;
+
+    /**
+     * Label for displaying the student ID.
+     */
     private JLabel labelStudentID;
+
+    /**
+     * Label for displaying the student's first name.
+     */
     private JLabel labelName;
+
+    /**
+     * Label for displaying the student's last name.
+     */
     private JLabel labelLastname;
+
+    /**
+     * Label for displaying the student's gender.
+     */
     private JLabel labelGender;
+
+    /**
+     * Label for displaying the student's career.
+     */
     private JLabel labelCareer;
+
+    /**
+     * Label for displaying the student's email.
+     */
     private JLabel labelEmail;
+
+    /**
+     * Label for displaying the student's photo or image.
+     */
     private JLabel labelStudent;
 
+    /**
+     * Text field for entering the student ID.
+     */
     private JTextField txtStudentId;
+
+    /**
+     * Text field for entering the student's first name.
+     */
     private JTextField txtName;
+
+    /**
+     * Text field for entering the student's last name.
+     */
     private JTextField txtLastname;
+
+    /**
+     * Text field for entering the student's gender.
+     */
     private JTextField txtGender;
+
+    /**
+     * Text field for entering the student's career.
+     */
     private JTextField txtCareer;
+
+    /**
+     * Text field for entering the student's email.
+     */
     private JTextField txtEmail;
 
+    /**
+     * Button to add or confirm the action.
+     */
     private JButton buttonAdd;
+
+    /**
+     * Button to cancel the action.
+     */
     private JButton buttonCancel;
-    private StudentHandler sh = StudentHandler.getInstance(); // Obtener la instancia del manejador
+
+    /**
+     * Instance of the StudentHandler to manage student-related actions.
+     */
+    private StudentHandler sh = StudentHandler.getInstance(); // Get the instance of the handler
+
+    /**
+     * Reference to the main screen of the application.
+     */
     private PrincipalScreen ps;
 
     /**
@@ -238,57 +311,61 @@ public class AddStudentScreen extends JFrame {
                 // Convertir el texto de txtGender a Gender
                 EGender gender = EGender.valueOf(txtGender.getText().toUpperCase());
 
-                Student student = new Student(
-                        txtStudentId.getText(),
-                        txtName.getText(),
-                        txtLastname.getText(),
-                        txtEmail.getText(),
-                        gender,
-                        txtCareer.getText());
+                String id = txtStudentId.getText();
+                String name = txtName.getText();
+                String lastname = txtLastname.getText();
+                String email = txtEmail.getText();
+                String career = txtCareer.getText();
 
                 boolean success = false;
 
                 // Lógica basada en el tipo de acción
                 switch (actionType) {
                     case ADD:
-                        if (sh.studentExists(student.getId())) {
+                        if (sh.studentExists(id)) {
                             JOptionPane.showMessageDialog(null, "The ID is already in use.");
                         } else {
-                            success = sh.addStudent(student);
+                            success = sh.addStudent(id, name, lastname, email, gender, career);
                         }
                         break;
                     case ADD_FIRST:
-                        if (sh.studentExists(student.getId())) {
+                        if (sh.studentExists(id)) {
                             JOptionPane.showMessageDialog(null, "The ID is already in use.");
                         } else {
-                            success = sh.addStudentFirst(student);
+                            success = sh.addStudentFirst(id, name, lastname, email, gender, career);
                         }
                         break;
                     case ADD_LAST:
-                        if (sh.studentExists(student.getId())) {
+                        if (sh.studentExists(id)) {
                             JOptionPane.showMessageDialog(null, "The ID is already in use.");
                         } else {
-                            success = sh.addStudentLast(student);
+                            success = sh.addStudentLast(id, name, lastname, email, gender, career);
                         }
                         break;
                     case ADD_BEFORE:
                         String beforeId = JOptionPane
                                 .showInputDialog("Enter the ID of the student before whom to add:");
                         if (beforeId != null) {
-                            if (sh.studentExists(student.getId())) {
+                            if (!sh.studentExists(beforeId)) {
+                                JOptionPane.showMessageDialog(null,
+                                        "The student with ID " + beforeId + " does not exist.");
+                            } else if (sh.studentExists(id)) {
                                 JOptionPane.showMessageDialog(null, "The ID is already in use.");
                             } else {
-                                success = sh.addStudentBefore(beforeId, student);
+                                success = sh.addStudentBefore(beforeId, id, name, lastname, email, gender, career);
                             }
                         }
                         break;
                     case ADD_AFTER:
                         String afterId = JOptionPane.showInputDialog("Enter the ID of the student after whom to add:");
                         if (afterId != null) {
-                            if (sh.studentExists(student.getId())) {
+                            if (!sh.studentExists(afterId)) {
+                                JOptionPane.showMessageDialog(null,
+                                        "The student with ID " + afterId + " does not exist.");
+                            } else if (sh.studentExists(id)) {
                                 JOptionPane.showMessageDialog(null, "The ID is already in use.");
                             } else {
-                                success = sh.addStudentAfter(afterId, student);
+                                success = sh.addStudentAfter(afterId, id, name, lastname, email, gender, career);
                             }
                         }
                         break;

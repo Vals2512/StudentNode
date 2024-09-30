@@ -1,5 +1,16 @@
+/**
+ * Provides the classes necessary to create an applet and the classes an applet uses 
+ * to communicate with its applet context. 
+ * <p>
+ * The applet framework involves two entities: 
+ * the applet and the applet context. An applet is an embeddable window (see the 
+ * {@link java.awt.Panel} class) with a few extra methods that the applet context 
+ * can use to initialize, start, and stop the applet.
+ *
+ */
 package controller;
 
+import model.EGender;
 import model.Student;
 import model.Node;
 import java.util.List;
@@ -8,14 +19,21 @@ import java.util.List;
  * Handler class for managing CRUD (Create, Read, Update, Delete) operations on
  * a list of students using a doubly linked list.
  */
-public class StudentHandler {
+public class StudentHandler{
+    /**
+     * Singleton instance of the StudentHandler class.
+     */
     private static StudentHandler instance;
+
+    /**
+     * Doubly linked list containing the student data.
+     */
     private DoubleLinkedList<Student> studentList;
 
     /**
      * Initializes a new StudentHandler with an empty list.
      */
-    public StudentHandler() {
+    private StudentHandler() {
         studentList = new DoubleLinkedList<>();
     }
 
@@ -37,27 +55,41 @@ public class StudentHandler {
     }
 
     /**
+     * Resets the singleton instance of the class to allow reinitialization.
+     *
+     * This method sets the current instance to {@code null}, enabling the
+     * re-creation of the instance if needed. This can be useful for testing
+     * purposes or when you need to reset the state of the singleton.
+     *
+     */
+    public void restartInstance() {
+        instance = null;
+    }
+
+    /**
      * Adds a student to the list in a sorted order.
      *
-     * @param student the student to be added
+     * @param id       the student's code
+     * @param name     the student's name
+     * @param lastname the student's last name
+     * @param email    the student's email
+     * @param gender   the student's gender
+     * @param career   the student's career
      * @return true if the student was added successfully
      * @throws IllegalArgumentException if the student or required fields are null,
      *                                  or if a student with the same ID already
      *                                  exists
      */
-    public boolean addStudent(Student student) {
-        if (student == null || student.getLastName() == null || student.getId() == null) {
+    public boolean addStudent(String id, String name, String lastname, String email, EGender gender, String career) {
+        if (id == null || name == null || lastname == null || email == null || gender == null || career == null) {
             throw new IllegalArgumentException("Student or required fields are null.");
         }
 
-        if (findStudentByCode(student.getId()) != null) {
+        if (findStudentByCode(id) != null) {
             throw new IllegalArgumentException("A student with the same code already exists.");
         }
 
-        if (studentExists(student.getId())) {
-            throw new IllegalArgumentException("The ID is already in use.");
-        }
-
+        Student student = new Student(id, name, lastname, email, gender, career);
         studentList.addNodeSorted(student);
         return true;
     }
@@ -65,20 +97,27 @@ public class StudentHandler {
     /**
      * Adds a student to the beginning of the list.
      *
-     * @param student the student to be added
+     * @param id       the student's code
+     * @param name     the student's name
+     * @param lastname the student's last name
+     * @param email    the student's email
+     * @param gender   the student's gender
+     * @param career   the student's career
      * @return true after successfully adding the student at the beginning
      * @throws IllegalArgumentException if the student is null or the ID is already
      *                                  in use
      */
-    public boolean addStudentFirst(Student student) {
-        if (student == null) {
+    public boolean addStudentFirst(String id, String name, String lastname, String email, EGender gender,
+            String career) {
+        if (id == null || name == null || lastname == null || email == null || gender == null || career == null) {
             throw new IllegalArgumentException("Student cannot be null.");
         }
 
-        if (studentExists(student.getId())) {
+        if (findStudentByCode(id) != null) {
             throw new IllegalArgumentException("The ID is already in use.");
         }
 
+        Student student = new Student(id, name, lastname, email, gender, career);
         studentList.addNodeFirst(student);
         return true;
     }
@@ -86,20 +125,27 @@ public class StudentHandler {
     /**
      * Adds a student to the end of the list.
      *
-     * @param student the student to be added
+     * @param id       the student's code
+     * @param name     the student's name
+     * @param lastname the student's last name
+     * @param email    the student's email
+     * @param gender   the student's gender
+     * @param career   the student's career
      * @return true after successfully adding the student at the end
      * @throws IllegalArgumentException if the student is null or the ID is already
      *                                  in use
      */
-    public boolean addStudentLast(Student student) {
-        if (student == null) {
+    public boolean addStudentLast(String id, String name, String lastname, String email, EGender gender,
+            String career) {
+        if (id == null || name == null || lastname == null || email == null || gender == null || career == null) {
             throw new IllegalArgumentException("Student cannot be null.");
         }
 
-        if (studentExists(student.getId())) {
+        if (findStudentByCode(id) != null) {
             throw new IllegalArgumentException("The ID is already in use.");
         }
 
+        Student student = new Student(id, name, lastname, email, gender, career);
         studentList.addNodeLast(student);
         return true;
     }
@@ -122,26 +168,31 @@ public class StudentHandler {
 
     /**
      * Updates a student's information.
-     *
-     * @param code           the code of the student to update
-     * @param updatedStudent the updated student information
+     * 
+     * @param code     the code of the student to update
+     * @param name     the updated student's name
+     * @param lastname the updated student's last name
+     * @param email    the updated student's email
+     * @param gender   the updated student's gender
+     * @param career   the updated student's career
      * @return true if the student was successfully updated
-     * @throws IllegalArgumentException if the code is null, empty, or the
-     *                                  updatedStudent is null
+     * @throws IllegalArgumentException if the code is null, empty, or any of the
+     *                                  updated fields are null
      * @throws IllegalStateException    if a student with the given code is not
      *                                  found
      */
-    public boolean updateStudent(String code, Student updatedStudent) {
+    public boolean updateStudent(String code, String name, String lastname, String email, EGender gender,
+            String career) {
         if (code == null || code.isEmpty()) {
             throw new IllegalArgumentException("The student code cannot be null or empty.");
         }
-        if (updatedStudent == null) {
-            throw new IllegalArgumentException("Updated student cannot be null.");
+        if (name == null || lastname == null || email == null || gender == null || career == null) {
+            throw new IllegalArgumentException("Updated student fields cannot be null.");
         }
 
         Node<Student> foundNode = studentList.findNode(code);
         if (foundNode != null) {
-
+            Student updatedStudent = new Student(code, name, lastname, email, gender, career);
             if (!foundNode.getInfo().getId().equals(updatedStudent.getId())) {
                 if (studentExists(updatedStudent.getId())) {
                     throw new IllegalArgumentException("The ID is already in use.");
@@ -223,24 +274,35 @@ public class StudentHandler {
 
     /**
      * Adds a student before another student identified by a code.
-     *
-     * @param code    the reference student's code
-     * @param student the student to add
+     * 
+     * @param code     the reference student's code
+     * @param id       the student's code to add
+     * @param name     the student's name to add
+     * @param lastname the student's last name to add
+     * @param email    the student's email to add
+     * @param gender   the student's gender to add
+     * @param career   the student's career to add
      * @return true if the student was added successfully
      * @throws IllegalArgumentException if the student is null or the ID is already
      *                                  in use
      */
-    public boolean addStudentBefore(String code, Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Student cannot be null.");
+    public boolean addStudentBefore(String code, String id, String name, String lastname, String email, EGender gender,
+            String career) {
+        if (code == null || code.isEmpty()) {
+            throw new IllegalArgumentException("The reference student code cannot be null or empty.");
+        }
+        if (id == null || id.isEmpty() || name == null || lastname == null || email == null || gender == null
+                || career == null) {
+            throw new IllegalArgumentException("Student fields cannot be null.");
         }
 
-        if (studentExists(student.getId())) {
+        if (studentExists(id)) {
             throw new IllegalArgumentException("The ID is already in use.");
         }
 
         Node<Student> foundNode = studentList.findNode(code);
         if (foundNode != null) {
+            Student student = new Student(id, name, lastname, email, gender, career);
             studentList.addNodeBeforeTo(foundNode, student);
             return true;
         } else {
@@ -250,24 +312,35 @@ public class StudentHandler {
 
     /**
      * Adds a student after another student identified by a code.
-     *
-     * @param code    the reference student's code
-     * @param student the student to add
+     * 
+     * @param code     the reference student's code
+     * @param id       the student's code to add
+     * @param name     the student's name to add
+     * @param lastname the student's last name to add
+     * @param email    the student's email to add
+     * @param gender   the student's gender to add
+     * @param career   the student's career to add
      * @return true if the student was added successfully
      * @throws IllegalArgumentException if the student is null or the ID is already
      *                                  in use
      */
-    public boolean addStudentAfter(String code, Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Student cannot be null.");
+    public boolean addStudentAfter(String code, String id, String name, String lastname, String email, EGender gender,
+            String career) {
+        if (code == null || code.isEmpty()) {
+            throw new IllegalArgumentException("The reference student code cannot be null or empty.");
+        }
+        if (id == null || id.isEmpty() || name == null || lastname == null || email == null || gender == null
+                || career == null) {
+            throw new IllegalArgumentException("Student fields cannot be null.");
         }
 
-        if (studentExists(student.getId())) {
+        if (studentExists(id)) {
             throw new IllegalArgumentException("The ID is already in use.");
         }
 
         Node<Student> foundNode = studentList.findNode(code);
         if (foundNode != null) {
+            Student student = new Student(id, name, lastname, email, gender, career);
             studentList.addNodeAfterTo(foundNode, student);
             return true;
         } else {
@@ -298,4 +371,7 @@ public class StudentHandler {
     public boolean studentExists(String code) {
         return findStudentByCode(code) != null;
     }
+
+
+
 }

@@ -3,7 +3,7 @@ package gui;
 import javax.swing.*;
 import controller.StudentHandler;
 import model.EGender;
-import model.Student;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,13 +17,44 @@ import java.awt.event.ActionListener;
  */
 public class UpdateStudentScreen extends JFrame {
 
+    /**
+     * Text field for entering the student's ID.
+     */
     private JTextField idField;
+
+    /**
+     * Text field for entering the student's first name.
+     */
     private JTextField nameField;
+
+    /**
+     * Text field for entering the student's last name.
+     */
     private JTextField lastNameField;
+
+    /**
+     * Text field for entering the student's email.
+     */
     private JTextField emailField;
+
+    /**
+     * Text field for entering the student's career.
+     */
     private JTextField careerField;
+
+    /**
+     * Combo box for selecting the student's gender.
+     */
     private JComboBox<EGender> genderComboBox;
+
+    /**
+     * Button to update the student's information.
+     */
     private JButton updateButton;
+
+    /**
+     * Button to return to the previous screen.
+     */
     private JButton returnButton;
 
     /**
@@ -32,7 +63,10 @@ public class UpdateStudentScreen extends JFrame {
      * @param ps The principal screen that will be displayed when the user returns.
      */
     public UpdateStudentScreen(PrincipalScreen ps) {
+        // Set the title for the window
+        setTitle("Update Student Information");
 
+        // Create text fields and combo box
         idField = new JTextField(10);
         nameField = new JTextField(10);
         lastNameField = new JTextField(10);
@@ -40,35 +74,76 @@ public class UpdateStudentScreen extends JFrame {
         careerField = new JTextField(10);
         genderComboBox = new JComboBox<>(EGender.values());
 
+        // Create buttons with styling
         updateButton = new JButton("Update");
+        styleButton(updateButton, "#4CAF50");
+
         returnButton = new JButton("Return");
+        styleButton(returnButton, "#B71C1C");
 
+        // Create a panel with a grid layout
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridBagLayout());
+        panel.setBackground(Color.decode("#F7F7F7"));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Add some padding
 
-        panel.add(new JLabel("ID:"));
-        panel.add(idField);
-        panel.add(new JLabel("Name:"));
-        panel.add(nameField);
-        panel.add(new JLabel("Last Name:"));
-        panel.add(lastNameField);
-        panel.add(new JLabel("Email:"));
-        panel.add(emailField);
-        panel.add(new JLabel("Career:"));
-        panel.add(careerField);
-        panel.add(new JLabel("Gender:"));
-        panel.add(genderComboBox);
+        // Add components to the panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel.add(new JLabel("ID of the student:"), gbc);
+        gbc.gridx = 1;
+        panel.add(idField, gbc);
 
-        panel.add(updateButton);
-        panel.add(returnButton);
+        gbc.gridx = 0;
+        gbc.gridy++;
+        panel.add(new JLabel("New Name:"), gbc);
+        gbc.gridx = 1;
+        panel.add(nameField, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
+        panel.add(new JLabel("New Last Name:"), gbc);
+        gbc.gridx = 1;
+        panel.add(lastNameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        panel.add(new JLabel("New Email:"), gbc);
+        gbc.gridx = 1;
+        panel.add(emailField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        panel.add(new JLabel("New Career:"), gbc);
+        gbc.gridx = 1;
+        panel.add(careerField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        panel.add(new JLabel("New Gender:"), gbc);
+        gbc.gridx = 1;
+        panel.add(genderComboBox, gbc);
+
+        // Add buttons
+        gbc.gridx = 0;
+        gbc.gridy++;
+        panel.add(updateButton, gbc);
+        gbc.gridx = 1;
+        panel.add(returnButton, gbc);
+
+        // Add the panel to the frame
         add(panel);
 
+        // Frame settings
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
+        panel.setBackground(Color.decode("#E3F2FD"));
 
+        // Action listeners for buttons
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,11 +155,10 @@ public class UpdateStudentScreen extends JFrame {
                 EGender gender = (EGender) genderComboBox.getSelectedItem();
 
                 if (!id.isEmpty() && !name.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !career.isEmpty()) {
-                    StudentHandler sh = new StudentHandler();
+                    StudentHandler sh = StudentHandler.getInstance();
 
                     if (sh.studentExists(id)) {
-                        Student updatedStudent = new Student(id, name, lastName, email, gender, career);
-                        sh.updateStudent(id, updatedStudent);
+                        sh.updateStudent(id, name, lastName, email, gender, career);
                         PrincipalScreen principalScreen = new PrincipalScreen();
                         principalScreen.setVisible(true);
                         dispose();
@@ -107,4 +181,17 @@ public class UpdateStudentScreen extends JFrame {
         });
     }
 
+    /**
+     * Styles a button with the given background color.
+     *
+     * @param button The button to be styled.
+     * @param color  The color code for the background.
+     */
+    private void styleButton(JButton button, String color) {
+        button.setBackground(Color.decode(color));
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setPreferredSize(new Dimension(150, 40));
+    }
 }

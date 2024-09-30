@@ -1,3 +1,13 @@
+/**
+ * Provides the classes necessary to create an applet and the classes an applet uses 
+ * to communicate with its applet context. 
+ * <p>
+ * The applet framework involves two entities: 
+ * the applet and the applet context. An applet is an embeddable window (see the 
+ * {@link java.awt.Panel} class) with a few extra methods that the applet context 
+ * can use to initialize, start, and stop the applet.
+ *
+ */
 package controller;
 
 import java.util.ArrayList;
@@ -13,7 +23,9 @@ import model.Node;
  */
 public class DoubleLinkedList<T extends Entity> {
 
+    /* Attribute that makes reference to the first node in the double linked list */
     private Node<T> head;
+    /* Attribute that makes reference to the last node in the double linked list */
     private Node<T> last;
 
     /**
@@ -147,10 +159,9 @@ public class DoubleLinkedList<T extends Entity> {
     /**
      * Finds a node with the specified value.
      *
-     * @param value the value to search for
+     * @param code the value to search for
      * @return the node containing the value, or null if not found
      */
-
     public Node<T> findNode(String code) {
         Node<T> current = head;
         while (current != null) {
@@ -214,6 +225,7 @@ public class DoubleLinkedList<T extends Entity> {
      * @return the information of the deleted node
      */
     public T deleteNode(Node<T> node) {
+        T infoNode = node.getInfo();
         if (node == head && node == last) {
             T info = node.getInfo();
             head = null;
@@ -231,9 +243,9 @@ public class DoubleLinkedList<T extends Entity> {
             node.getPrevious().setNext(node.getNext());
             node.getNext().setPrevious(node.getPrevious());
         }
-        
+
         node = null;
-        return node.getInfo();
+        return infoNode;
     }
 
     /**

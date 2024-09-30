@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import controller.StudentHandler;
 import model.ActionType;
 
 /**
@@ -11,9 +10,11 @@ import model.ActionType;
  * interface to manage actions for various buttons on the PrincipalScreen.
  */
 public class ButtonHandler implements ActionListener {
-
-    private StudentHandler sh;
+    /**
+     * Reference to the main application screen.
+     */
     private PrincipalScreen principalScreen;
+
 
     /**
      * Constructor for the ButtonHandler class.
@@ -22,7 +23,6 @@ public class ButtonHandler implements ActionListener {
      *           managed.
      */
     public ButtonHandler(PrincipalScreen ps) {
-        this.sh = new StudentHandler();
         this.principalScreen = ps;
     }
 

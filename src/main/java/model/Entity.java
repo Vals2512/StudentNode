@@ -8,7 +8,12 @@ package model;
  */
 public abstract class Entity implements Comparable<Entity> {
 
+    /**
+     * The unique identifier for the entity.
+     * This ID is used to distinguish each instance in the system.
+     */
     protected String id;
+
 
     /**
      * Gets the ID of this entity.

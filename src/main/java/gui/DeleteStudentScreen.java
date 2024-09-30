@@ -17,8 +17,16 @@ import java.awt.event.ActionListener;
 
 public class DeleteStudentScreen extends JFrame implements ActionListener {
 
+    /**
+     * Reference to the main application screen.
+     */
     private PrincipalScreen principalScreen;
+
+    /**
+     * Text field for entering the student's ID.
+     */
     private JTextField idField;
+
 
     /**
      * Constructor for the DeleteStudentScreen class.
@@ -110,7 +118,7 @@ public class DeleteStudentScreen extends JFrame implements ActionListener {
         String id = idField.getText();
         if (id != null && !id.isEmpty()) {
             try {
-                StudentHandler sh = new StudentHandler();
+                StudentHandler sh = StudentHandler.getInstance();
                 sh.deleteStudent(id);
                 principalScreen.setVisible(true);
                 dispose();

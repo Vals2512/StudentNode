@@ -6,11 +6,31 @@ package model;
  */
 public class Student extends Entity {
 
+    /**
+     * The name of the student.
+     */
     private String name;
+
+    /**
+     * The last name of the student.
+     */
     private String lastname;
+
+    /**
+     * The email address of the student.
+     */
     private String email;
+
+    /**
+     * The gender of the student, represented by the EGender enumeration.
+     */
     private EGender gender;
+
+    /**
+     * The career or program of study the student is enrolled in.
+     */
     private String career;
+
 
     /**
      * Default constructor for the Student class.
@@ -155,7 +175,7 @@ public class Student extends Entity {
     public String toString() {
         return "Code=" + id + ", name=" + name + ", Last name= " + lastname + ", email=" + email + ", gender="
                 + gender + ", career="
-                + career + "";
+                + career ;
     }
 
 }
