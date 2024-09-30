@@ -232,19 +232,20 @@ public class DoubleLinkedList<T extends Entity> {
             last = null;
             return info;
         } else if (node == head) {
-            head = head.getNext();
-            last.setNext(head);
-            head.setPrevious(last);
+            node.getNext().setPrevious(null);
+            head = node.getNext();
+            node = null;
         } else if (node == last) {
-            last = last.getPrevious();
-            last.setNext(head);
-            head.setPrevious(last);
+            node.getPrevious().setNext(null);
+            last = node.getPrevious();
+            node = null;
         } else {
             node.getPrevious().setNext(node.getNext());
             node.getNext().setPrevious(node.getPrevious());
+            node= null;
         }
 
-        node = null;
+
         return infoNode;
     }
 

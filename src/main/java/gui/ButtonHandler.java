@@ -19,6 +19,7 @@ public class ButtonHandler implements ActionListener {
     /**
      * Constructor for the ButtonHandler class.
      *
+     *
      * @param ps The main screen (PrincipalScreen) from which the button events are
      *           managed.
      */
